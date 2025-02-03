@@ -15,27 +15,24 @@ body {
 
 .pokemon-container {
     display: flex;
-    flex-wrap: wrap; 
     justify-content: center;
-    align-items: flex-start; 
-    height: auto;
-    min-height: 300px; 
+    align-items: center;
+    height: 300px;
 }
 
 .pokemon-info {
-    width: 150px; 
+    width: 150px;
     display: inline-block;
     padding: 10px;
     margin: 10px;
     border: 1px solid #ddd;
     background-color: #fafafa;
     text-align: center;
-    vertical-align: top;
     cursor: pointer;
 }
 
 .pokemon-info img {
-    max-width: 100px; 
+    max-width: 100px;
     height: auto;
 }
 
