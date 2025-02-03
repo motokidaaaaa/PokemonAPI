@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ランダムポケモンバトル</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ランダムポケモンバトル</h1>
+        <h2>ポケモンをクリックして捕まえろ!</h2>
+        <div id="pokemonContainer" class="pokemon-container"></div>
+        <button onclick="startBattle()">バトル開始</button>
+        <button onclick="resetBattle()">リセット</button>
+        <div id="result"></div>
+    </div>
+    <audio id="selectScreenMusic" src="～オープニング～.wav" loop></audio>
+    <audio id="battleMusic" src="戦い（ＶＳトレーナー）.wav" loop></audio>
+    <audio id="victoryMusic" src="勝利（ＶＳトレーナー）.wav"></audio>
+    <script src="main.js"></script>
+</body>
+</html>
+
