@@ -50,6 +50,7 @@ async function startBattle() {
     selectScreenMusic.pause();
     selectScreenMusic.currentTime = 0; 
     battleMusic.play();
+    document.body.className = 'battling';
 
     if (selectedPokemons.length < 3) {
         alert('まず3匹のポケモンを選択してください！');
@@ -94,6 +95,9 @@ async function startBattle() {
             resultElement.innerHTML += `<h2> ${winner}</h2>`;
             if (currentEnemyIndex >= enemyPokemons.length) {
                 victoryMusic.play();
+                document.body.className = 'victory';
+            } else {
+                document.body.className = 'defeat';
             }
         } else {
             setTimeout(battleRound, 3000); 
@@ -112,6 +116,7 @@ function resetBattle() {
     victoryMusic.pause();
     victoryMusic.currentTime = 0; 
     selectScreenMusic.play();
+    document.body.className = 'selecting';
 }
 
 function startRotation() {
@@ -123,4 +128,5 @@ document.addEventListener('DOMContentLoaded', () => {
     startRotation();
     document.querySelector('button[onclick="startBattle()"]').disabled = true;
     selectScreenMusic.play();
+    document.body.className = 'selecting';
 });
