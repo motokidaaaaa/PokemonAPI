@@ -9,11 +9,12 @@
 <body>
     <div class="container">
         <h1>ランダムポケモンバトル</h1>
-        <h2>ポケモンをクリックして捕まえろ!</h2>
+        <h2>ポケモンをクリックして三体捕まえろ！</h2>
         <div id="pokemonContainer" class="pokemon-container"></div>
         <button onclick="startBattle()">バトル開始</button>
         <button onclick="resetBattle()">リセット</button>
-        <div id="result"></div>
+        <div id="result" class="result"></div>
+        <div id="battleText" class="battle-text"></div>
     </div>
     <audio id="selectScreenMusic" src="～オープニング～.wav" loop></audio>
     <audio id="battleMusic" src="戦い（ＶＳトレーナー）.wav" loop></audio>
@@ -21,4 +22,3 @@
     <script src="main.js"></script>
 </body>
 </html>
-
