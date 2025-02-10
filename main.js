@@ -27,7 +27,6 @@ async function displayRandomPokemon() {
     pokemonContainer.innerHTML = `
         <div class="pokemon-info" onclick="selectPokemon('${pokemon.name}', ${pokemon.stats.find(stat => stat.stat.name === 'attack').base_stat}, '${pokemon.sprites.front_default}')">
             <img src="${pokemon.sprites.front_default}" alt="ランダムポケモン">
-            <img src="pokeball.png" alt="ポケモンボール" class="pokeball">
         </div>
     `;
 }
@@ -38,7 +37,7 @@ function selectPokemon(name, attack, image) {
         selectedPokemons.push({name, attack, image});
         alert(`${name} きみにきめた!`);
         if (selectedPokemons.length === 3) {
-            document.querySelector('button[onclick="startBattle()"]').disabled = false;
+            startBattle(); // 3体選ばれたら自動的にバトルを開始
         }
     }
 }
@@ -79,12 +78,6 @@ async function startBattle() {
     battleMusic.play();
     document.body.className = 'battling';
     mainTitle.textContent = "ポケモンを選択して戦おう！"; // バトル開始時にh2テキストを変更
-
-    // ポケモンが3匹選ばれていない場合のチェック
-    if (selectedPokemons.length < 3) {
-        alert('まず3匹のポケモンを選択してください！');
-        return;
-    }
 
     await getRandomEnemies();
 
