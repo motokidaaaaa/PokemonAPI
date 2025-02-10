@@ -1,9 +1,32 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
+   
+    background-size: cover;
+    
+    background-repeat: no-repeat;
     padding: 20px;
 }
 
+body.selecting{
+    background-image:url('./poke1.jpg');
+}
+
+
+body.battling{
+    background-image:url('./poke2.webp');
+    
+    
+}
+
+body.victory{
+    background-image: url('./kati2.png');
+    
+}
+body.defeat{
+    background-image:url('./make.jpg');
+
+}
 .container {
     max-width: 800px;
     margin: auto;
