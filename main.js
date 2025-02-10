@@ -8,7 +8,11 @@ const selectScreenMusic = document.getElementById('selectScreenMusic');
 const battleMusic = document.getElementById('battleMusic');
 const victoryMusic = document.getElementById('victoryMusic');
 const battleText = document.getElementById('battleText');
-const mainTitle = document.querySelector('h2'); // h2要素を取得
+const mainTitle = document.querySelector('.container h2'); // h2要素を取得
+
+// スタート画面の要素
+const startScreen = document.getElementById('startScreen');
+const gameScreen = document.getElementById('gameScreen');
 
 // ランダムなポケモンを取得する関数
 async function getRandomPokemon() {
@@ -58,6 +62,13 @@ function showBattleText(text) {
     setTimeout(() => {
         battleText.innerHTML = '';
     }, 2000);
+}
+
+// ゲームを開始する関数
+function startGame() {
+    startScreen.classList.add('hidden');
+    gameScreen.classList.remove('hidden');
+    selectScreenMusic.play();
 }
 
 // バトルを開始する関数
@@ -113,7 +124,7 @@ async function startBattle() {
             if (currentEnemyIndex >= enemyPokemons.length) {
                 battleMusic.pause();
                 battleMusic.currentTime = 0; 
-                showBattleText('');
+                showBattleText('勝利判定...');
                 setTimeout(() => {
                     resultElement.innerHTML += `<h2>たたかいに勝利した!</h2>`;
                     victoryMusic.play();
@@ -144,7 +155,7 @@ async function startBattle() {
             pokemonDiv.innerHTML = `
                 <h2>${pokemon.name}</h2>
                 <img src="${pokemon.image}" alt="${pokemon.name}">
-                <img src="images.png" alt="" class="pokeball">
+                <img src="pokeball.png" alt="ポケモンボール" class="pokeball">
                 <p>攻撃力: ${pokemon.attack}</p>
             `;
             pokemonDiv.onclick = () => {

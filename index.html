@@ -7,14 +7,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <div id="startScreen" class="start-screen">
         <h1>ランダムポケモンバトル</h1>
-        <h2>ポケモンをクリックして三体捕まえろ！</h2>
-        <div id="pokemonContainer" class="pokemon-container"></div>
-        <button onclick="startBattle()">バトル開始</button>
-        <button onclick="resetBattle()">リセット</button>
-        <div id="result" class="result"></div>
-        <div id="battleText" class="battle-text"></div>
+        <button onclick="startGame()">スタート</button>
+    </div>
+    <div id="gameScreen" class="game-screen hidden">
+        <div class="container">
+            <h1>ランダムポケモンバトル</h1>
+            <h2>ポケモンをクリックして三体捕まえろ！</h2>
+            <div id="pokemonContainer" class="pokemon-container"></div>
+            <button onclick="startBattle()">バトル開始</button>
+            <button onclick="resetBattle()">リセット</button>
+            <div id="result" class="result"></div>
+            <div id="battleText" class="battle-text"></div>
+        </div>
     </div>
     <audio id="selectScreenMusic" src="～オープニング～.wav" loop></audio>
     <audio id="battleMusic" src="戦い（ＶＳトレーナー）.wav" loop></audio>
