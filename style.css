@@ -29,11 +29,21 @@ body {
     background-color: #fafafa;
     text-align: center;
     cursor: pointer;
+    position: relative; /* 追加 */
 }
 
 .pokemon-info img {
     max-width: 100px;
     height: auto;
+}
+
+.pokeball {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    opacity: 0.8; /* 少し透明にしてポケモンが見えるように */
 }
 
 button {

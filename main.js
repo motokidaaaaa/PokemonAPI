@@ -8,21 +8,25 @@ const selectScreenMusic = document.getElementById('selectScreenMusic');
 const battleMusic = document.getElementById('battleMusic');
 const victoryMusic = document.getElementById('victoryMusic');
 
+// ランダムなポケモンを取得する関数
 async function getRandomPokemon() {
     const randomId = Math.floor(Math.random() * 898) + 1; 
     const response = await fetch(`${API_URL}${randomId}`);
     return await response.json();
 }
 
+// ランダムなポケモンを表示する関数
 async function displayRandomPokemon() {
     const pokemon = await getRandomPokemon();
     pokemonContainer.innerHTML = `
         <div class="pokemon-info" onclick="selectPokemon('${pokemon.name}', ${pokemon.stats.find(stat => stat.stat.name === 'attack').base_stat}, '${pokemon.sprites.front_default}')">
             <img src="${pokemon.sprites.front_default}" alt="ランダムポケモン">
+            <img src="pokeball.png" alt="ポケモンボール" class="pokeball">
         </div>
     `;
 }
 
+// ポケモンを選択する関数
 function selectPokemon(name, attack, image) {
     if (selectedPokemons.length < 3) {
         selectedPokemons.push({name, attack, image});
@@ -33,6 +37,7 @@ function selectPokemon(name, attack, image) {
     }
 }
 
+// ランダムな敵ポケモンを取得する関数
 async function getRandomEnemies() {
     enemyPokemons = [];
     for (let i = 0; i < 3; i++) {
@@ -45,12 +50,14 @@ async function getRandomEnemies() {
     }
 }
 
+// バトルを開始する関数
 async function startBattle() {
     clearInterval(rotationInterval);
     selectScreenMusic.pause();
     selectScreenMusic.currentTime = 0; 
     battleMusic.play();
 
+    // ポケモンが3匹選ばれていない場合のチェック
     if (selectedPokemons.length < 3) {
         alert('まず3匹のポケモンを選択してください！');
         return;
@@ -58,11 +65,11 @@ async function startBattle() {
 
     await getRandomEnemies();
 
-    let currentPokemonIndex = 0;
     let currentEnemyIndex = 0;
     
-    function battleRound() {
-        const pokemon = selectedPokemons[currentPokemonIndex];
+    // バトルの各ラウンドを処理する関数
+    function battleRound(playerPokemonIndex) {
+        const pokemon = selectedPokemons[playerPokemonIndex];
         const enemy = enemyPokemons[currentEnemyIndex];
 
         pokemonContainer.innerHTML = `
@@ -84,25 +91,47 @@ async function startBattle() {
             currentEnemyIndex++;
         } else {
             resultElement.innerHTML = `<h2>${enemy.name}が勝利した! </h2>`;
-            currentPokemonIndex++;
         }
 
-        if (currentPokemonIndex >= selectedPokemons.length || currentEnemyIndex >= enemyPokemons.length) {
+        // バトルの終了条件
+        if (currentEnemyIndex >= enemyPokemons.length) {
             battleMusic.pause();
             battleMusic.currentTime = 0; 
-            const winner = currentEnemyIndex >= enemyPokemons.length ? 'たたかいに勝利した!' : '目の前がまっくらになった';
-            resultElement.innerHTML += `<h2> ${winner}</h2>`;
-            if (currentEnemyIndex >= enemyPokemons.length) {
-                victoryMusic.play();
-            }
+            resultElement.innerHTML += `<h2>たたかいに勝利した!</h2>`;
+            victoryMusic.play();
+        } else if (selectedPokemons.length === 0) {
+            battleMusic.pause();
+            battleMusic.currentTime = 0; 
+            resultElement.innerHTML += `<h2>目の前がまっくらになった</h2>`;
         } else {
-            setTimeout(battleRound, 3000); 
+            // 次のラウンドのためにポケモンを選択する
+            setTimeout(selectPokemonForBattle, 3000);
         }
     }
 
-    battleRound();
+    // バトル用にポケモンを選択する関数
+    function selectPokemonForBattle() {
+        pokemonContainer.innerHTML = '';
+        selectedPokemons.forEach((pokemon, index) => {
+            const pokemonDiv = document.createElement('div');
+            pokemonDiv.className = 'pokemon-info';
+            pokemonDiv.innerHTML = `
+                <h2>${pokemon.name}</h2>
+                <img src="${pokemon.image}" alt="${pokemon.name}">
+                <img src="images.png" alt="ポケモンボール" class="pokeball">
+                <p>攻撃力: ${pokemon.attack}</p>
+            `;
+            pokemonDiv.onclick = () => {
+                battleRound(index);
+            };
+            pokemonContainer.appendChild(pokemonDiv);
+        });
+    }
+
+    selectPokemonForBattle();
 }
 
+// バトルをリセットする関数
 function resetBattle() {
     selectedPokemons = [];
     enemyPokemons = [];
@@ -114,6 +143,7 @@ function resetBattle() {
     selectScreenMusic.play();
 }
 
+// ランダムポケモンの表示を開始する関数
 function startRotation() {
     displayRandomPokemon();
     rotationInterval = setInterval(displayRandomPokemon, 500); 
