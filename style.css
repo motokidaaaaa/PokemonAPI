@@ -30,7 +30,7 @@ body.defeat{
 .container {
     max-width: 800px;
     margin: auto;
-    background-color: #fff;
+    background-image: url('./1.jpg');
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -52,7 +52,6 @@ body.defeat{
     background-color: #fafafa;
     text-align: center;
     cursor: pointer;
-    position: relative; /* 追加 */
 }
 
 .pokemon-info img {
@@ -60,53 +59,6 @@ body.defeat{
     height: auto;
 }
 
-.pokeball {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    opacity: 0.8; /* 少し透明にしてポケモンが見えるように */
-}
-
-.result, .battle-text {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.battle-text {
-    color: #d9534f;
-    animation: flash 1s ease-in-out infinite;
-}
-
-@keyframes flash {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
 button {
     margin: 10px;
 }
-
-
-body.selecting {
-    background-image: url('poke1.jpg');
-    background-size: cover;
-}
-
-body.battling {
-    background-image: url('poke2.webp');
-    background-size: cover;
-}
-
-body.victory {
-    background-image: url('勝利　背景.png');
-    background-size: cover;
-}
-
-body.defeat {
-    background-image: url('負け.avif');
-    background-size: cover;
-}
-
