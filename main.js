@@ -148,7 +148,7 @@ async function startBattle() {
             pokemonDiv.innerHTML = `
                 <h2>${pokemon.name}</h2>
                 <img src="${pokemon.image}" alt="${pokemon.name}">
-                <img src="pokeball.png" alt="ポケモンボール" class="pokeball">
+                <img src="images.png" alt="" class="pokeball">
                 <p>攻撃力: ${pokemon.attack}</p>
             `;
             pokemonDiv.onclick = () => {
@@ -166,7 +166,6 @@ function resetBattle() {
     selectedPokemons = [];
     enemyPokemons = [];
     document.getElementById('result').innerHTML = '';
-    document.querySelector('button[onclick="startBattle()"]').disabled = true;
     startRotation();
     victoryMusic.pause();
     victoryMusic.currentTime = 0; 
@@ -183,7 +182,6 @@ function startRotation() {
 
 document.addEventListener('DOMContentLoaded', () => {
     startRotation();
-    document.querySelector('button[onclick="startBattle()"]').disabled = true;
     selectScreenMusic.play();
     document.body.className = 'selecting';
 });
