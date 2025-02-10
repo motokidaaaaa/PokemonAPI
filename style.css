@@ -46,9 +46,26 @@ body {
     opacity: 0.8; /* 少し透明にしてポケモンが見えるように */
 }
 
+.result, .battle-text {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.battle-text {
+    color: #d9534f;
+    animation: flash 1s ease-in-out infinite;
+}
+
+@keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
 button {
     margin: 10px;
 }
+
 
 body.selecting {
     background-image: url('poke1.jpg');

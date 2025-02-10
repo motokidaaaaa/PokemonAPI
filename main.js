@@ -7,6 +7,7 @@ let rotationInterval;
 const selectScreenMusic = document.getElementById('selectScreenMusic');
 const battleMusic = document.getElementById('battleMusic');
 const victoryMusic = document.getElementById('victoryMusic');
+const battleText = document.getElementById('battleText');
 
 // ランダムなポケモンを取得する関数
 async function getRandomPokemon() {
@@ -50,6 +51,14 @@ async function getRandomEnemies() {
     }
 }
 
+// バトルテキストを表示する関数
+function showBattleText(text) {
+    battleText.innerHTML = text;
+    setTimeout(() => {
+        battleText.innerHTML = '';
+    }, 2000);
+}
+
 // バトルを開始する関数
 async function startBattle() {
     clearInterval(rotationInterval);
@@ -72,6 +81,8 @@ async function startBattle() {
     function battleRound(playerPokemonIndex) {
         const pokemon = selectedPokemons[playerPokemonIndex];
         const enemy = enemyPokemons[currentEnemyIndex];
+
+        showBattleText(`${pokemon.name} VS ${enemy.name}!`);
 
         pokemonContainer.innerHTML = `
             <div class="pokemon-info">
@@ -99,8 +110,14 @@ async function startBattle() {
         if (currentEnemyIndex >= enemyPokemons.length) {
             battleMusic.pause();
             battleMusic.currentTime = 0; 
-            resultElement.innerHTML += `<h2>たたかいに勝利した!</h2>`;
-            victoryMusic.play();
+            const winner = currentEnemyIndex >= enemyPokemons.length ? 'たたかいに勝利した!' : '目の前がまっくらになった';
+            resultElement.innerHTML += `<h2> ${winner}</h2>`;
+            if (currentEnemyIndex >= enemyPokemons.length) {
+                victoryMusic.play();
+                document.body.className = 'victory';
+            } else {
+                document.body.className = 'defeat';
+            }
         } else if (selectedPokemons.length === 0) {
             battleMusic.pause();
             battleMusic.currentTime = 0; 
