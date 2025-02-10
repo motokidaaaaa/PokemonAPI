@@ -8,6 +8,7 @@ const selectScreenMusic = document.getElementById('selectScreenMusic');
 const battleMusic = document.getElementById('battleMusic');
 const victoryMusic = document.getElementById('victoryMusic');
 const battleText = document.getElementById('battleText');
+const mainTitle = document.querySelector('h2'); // h2要素を取得
 
 // ランダムなポケモンを取得する関数
 async function getRandomPokemon() {
@@ -66,6 +67,7 @@ async function startBattle() {
     selectScreenMusic.currentTime = 0; 
     battleMusic.play();
     document.body.className = 'battling';
+    mainTitle.textContent = "ポケモンを選択して戦おう！"; // バトル開始時にh2テキストを変更
 
     // ポケモンが3匹選ばれていない場合のチェック
     if (selectedPokemons.length < 3) {
@@ -98,38 +100,43 @@ async function startBattle() {
         `;
 
         const resultElement = document.getElementById('result');
-        if (pokemon.attack >= enemy.attack) {
-            resultElement.innerHTML = `<h2>${pokemon.name}が勝利した! </h2>`;
-            currentEnemyIndex++;
-        } else {
-            resultElement.innerHTML = `<h2>${enemy.name}が勝利した! </h2>`;
-            selectedPokemons.splice(playerPokemonIndex, 1); // 負けたポケモンをリストから削除
-        }
-
-        // バトルの終了条件
-        if (currentEnemyIndex >= enemyPokemons.length) {
-            battleMusic.pause();
-            battleMusic.currentTime = 0; 
-            const winner = currentEnemyIndex >= enemyPokemons.length ? 'たたかいに勝利した!' : '目の前がまっくらになった';
-            resultElement.innerHTML += `<h2> ${winner}</h2>`;
-            if (currentEnemyIndex >= enemyPokemons.length) {
-                victoryMusic.play();
-                document.body.className = 'victory';
+        setTimeout(() => {
+            if (pokemon.attack >= enemy.attack) {
+                resultElement.innerHTML = `<h2>${pokemon.name}が勝利した! </h2>`;
+                currentEnemyIndex++;
             } else {
-                document.body.className = 'defeat';
+                resultElement.innerHTML = `<h2>${enemy.name}が勝利した! </h2>`;
+                selectedPokemons.splice(playerPokemonIndex, 1); // 負けたポケモンをリストから削除
             }
-        } else if (selectedPokemons.length === 0) {
-            battleMusic.pause();
-            battleMusic.currentTime = 0; 
-            resultElement.innerHTML += `<h2>目の前がまっくらになった</h2>`;
-        } else {
-            // 次のラウンドのためにポケモンを選択する
-            setTimeout(selectPokemonForBattle, 3000);
-        }
+
+            // バトルの終了条件
+            if (currentEnemyIndex >= enemyPokemons.length) {
+                battleMusic.pause();
+                battleMusic.currentTime = 0; 
+                showBattleText('');
+                setTimeout(() => {
+                    resultElement.innerHTML += `<h2>たたかいに勝利した!</h2>`;
+                    victoryMusic.play();
+                    document.body.className = 'victory';
+                }, 2000);
+            } else if (selectedPokemons.length === 0) {
+                battleMusic.pause();
+                battleMusic.currentTime = 0; 
+                showBattleText('敗北判定...');
+                setTimeout(() => {
+                    resultElement.innerHTML += `<h2>目の前がまっくらになった</h2>`;
+                    document.body.className = 'defeat';
+                }, 2000);
+            } else {
+                // 次のラウンドのためにポケモンを選択する
+                setTimeout(selectPokemonForBattle, 3000);
+            }
+        }, 2000);
     }
 
     // バトル用にポケモンを選択する関数
     function selectPokemonForBattle() {
+        showBattleText('ポケモンを選んで！');
         pokemonContainer.innerHTML = '';
         selectedPokemons.forEach((pokemon, index) => {
             const pokemonDiv = document.createElement('div');
@@ -161,6 +168,7 @@ function resetBattle() {
     victoryMusic.currentTime = 0; 
     selectScreenMusic.play();
     document.body.className = 'selecting';
+    mainTitle.textContent = "ポケモンをクリックして三体捕まえろ！"; // リセット時にh2テキストを変更
 }
 
 // ランダムポケモンの表示を開始する関数
