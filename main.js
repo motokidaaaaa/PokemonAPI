@@ -67,7 +67,7 @@ async function startBattle() {
     await getRandomEnemies();
 
     let currentEnemyIndex = 0;
-    
+
     // バトルの各ラウンドを処理する関数
     function battleRound(playerPokemonIndex) {
         const pokemon = selectedPokemons[playerPokemonIndex];
@@ -92,20 +92,19 @@ async function startBattle() {
             currentEnemyIndex++;
         } else {
             resultElement.innerHTML = `<h2>${enemy.name}が勝利した! </h2>`;
+            selectedPokemons.splice(playerPokemonIndex, 1); // 負けたポケモンをリストから削除
         }
 
         // バトルの終了条件
         if (currentEnemyIndex >= enemyPokemons.length) {
             battleMusic.pause();
             battleMusic.currentTime = 0; 
-            const winner = currentEnemyIndex >= enemyPokemons.length ? 'たたかいに勝利した!' : '目の前がまっくらになった';
-            resultElement.innerHTML += `<h2> ${winner}</h2>`;
-            if (currentEnemyIndex >= enemyPokemons.length) {
-                victoryMusic.play();
-                document.body.className = 'victory';
-            } else {
-                document.body.className = 'defeat';
-            }
+            resultElement.innerHTML += `<h2>たたかいに勝利した!</h2>`;
+            victoryMusic.play();
+        } else if (selectedPokemons.length === 0) {
+            battleMusic.pause();
+            battleMusic.currentTime = 0; 
+            resultElement.innerHTML += `<h2>目の前がまっくらになった</h2>`;
         } else {
             // 次のラウンドのためにポケモンを選択する
             setTimeout(selectPokemonForBattle, 3000);
@@ -121,7 +120,7 @@ async function startBattle() {
             pokemonDiv.innerHTML = `
                 <h2>${pokemon.name}</h2>
                 <img src="${pokemon.image}" alt="${pokemon.name}">
-                <img src="pokeball.png" alt="ポケモンボール" class="pokeball">
+                <img src="images.png" alt="" class="pokeball">
                 <p>攻撃力: ${pokemon.attack}</p>
             `;
             pokemonDiv.onclick = () => {
