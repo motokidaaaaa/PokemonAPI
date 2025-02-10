@@ -49,3 +49,24 @@ body {
 button {
     margin: 10px;
 }
+
+body.selecting {
+    background-image: url('poke1.jpg');
+    background-size: cover;
+}
+
+body.battling {
+    background-image: url('poke2.webp');
+    background-size: cover;
+}
+
+body.victory {
+    background-image: url('勝利　背景.png');
+    background-size: cover;
+}
+
+body.defeat {
+    background-image: url('負け.avif');
+    background-size: cover;
+}
+
