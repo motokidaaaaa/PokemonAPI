@@ -78,15 +78,15 @@ async function getRandomEnemies() {
 
 // バトルを開始する関数
 async function startBattle() {
-    clearInterval(rotationInterval);
+    clearInterval(rotationInterval); // ポケモンの回転表示を停止
     selectScreenMusic.pause();
     selectScreenMusic.currentTime = 0; 
-    battleMusic.play();
+    battleMusic.play(); // バトル音楽を再生
     document.body.className = 'battling';
     mainTitle.textContent = "ポケモンを選択して戦おう！"; 
     document.getElementById('result').innerHTML = ''; // バトル開始時に勝利テキストを消す
 
-    await getRandomEnemies();
+    await getRandomEnemies(); // ランダムな敵ポケモンを取得
 
     let currentEnemyIndex = 0;
 
@@ -179,7 +179,7 @@ function resetBattle() {
 
 function startRotation() {
     displayRandomPokemon();
-    rotationInterval = setInterval(displayRandomPokemon, 500); 
+    rotationInterval = setInterval(displayRandomPokemon, 1500); // ポケモンを1.5秒ごとに回転表示
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -187,3 +187,4 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.className = 'selecting';
     selectScreenMusic.play();
 });
+
