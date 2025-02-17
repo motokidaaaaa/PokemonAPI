@@ -84,6 +84,7 @@ async function startBattle() {
     battleMusic.play();
     document.body.className = 'battling';
     mainTitle.textContent = "ポケモンを選択して戦おう！"; 
+    document.getElementById('result').innerHTML = ''; // バトル開始時に勝利テキストを消す
 
     await getRandomEnemies();
 
@@ -92,8 +93,6 @@ async function startBattle() {
     function battleRound(playerPokemonIndex) {
         const pokemon = selectedPokemons[playerPokemonIndex];
         const enemy = enemyPokemons[currentEnemyIndex];
-
-        showBattleText(`${pokemon.name} VS ${enemy.name}!`);
 
         pokemonContainer.innerHTML = `
             <div class="pokemon-info">
@@ -111,18 +110,23 @@ async function startBattle() {
         const resultElement = document.getElementById('result');
         setTimeout(() => {
             if (pokemon.attack >= enemy.attack) {
-                resultElement.innerHTML = `<h2>${pokemon.name}が勝利した! </h2>`;
+                resultElement.innerHTML = `<h2>${pokemon.name}が勝利した!</h2>`;
                 currentEnemyIndex++;
             } else {
-                resultElement.innerHTML = `<h2>${enemy.name}が勝利した! </h2>`;
+                resultElement.innerHTML = `<h2>${enemy.name}が勝利した!</h2>`;
                 selectedPokemons.splice(playerPokemonIndex, 1); 
             }
+
+            // 勝利テキストをバトル中に表示しない
+            setTimeout(() => {
+                resultElement.innerHTML = ''; 
+            }, 2000);
 
             if (currentEnemyIndex >= enemyPokemons.length) {
                 battleMusic.pause();
                 battleMusic.currentTime = 0; 
                 setTimeout(() => {
-                    resultElement.innerHTML += `<h2>たたかいに勝利した!</h2>`;
+                    resultElement.innerHTML = `<h2>たたかいに勝利した!</h2>`;
                     victoryMusic.play();
                     document.body.className = 'victory';
                     container.style.backgroundImage = "none"; // コンテナの背景画像を削除
@@ -130,9 +134,8 @@ async function startBattle() {
             } else if (selectedPokemons.length === 0) {
                 battleMusic.pause();
                 battleMusic.currentTime = 0; 
-                showBattleText('敗北判定...');
                 setTimeout(() => {
-                    resultElement.innerHTML += `<h2>目の前がまっくらになった</h2>`;
+                    resultElement.innerHTML = `<h2>目の前がまっくらになった</h2>`;
                     document.body.className = 'defeat';
                     container.style.backgroundImage = "none"; // コンテナの背景画像を削除
                 }, 2000);
@@ -143,7 +146,6 @@ async function startBattle() {
     }
 
     function selectPokemonForBattle() {
-        showBattleText('ポケモンを選んで！');
         pokemonContainer.innerHTML = '';
         selectedPokemons.forEach((pokemon, index) => {
             const pokemonDiv = document.createElement('div');
@@ -166,7 +168,7 @@ async function startBattle() {
 function resetBattle() {
     selectedPokemons = [];
     enemyPokemons = [];
-    document.getElementById('result').innerHTML = '';
+    document.getElementById('result').innerHTML = ''; // リセット時に勝利テキストを消す
     victoryMusic.pause();
     victoryMusic.currentTime = 0; 
     selectScreenMusic.play();
