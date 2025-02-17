@@ -9,15 +9,7 @@ const battleMusic = document.getElementById('battleMusic');
 const victoryMusic = document.getElementById('victoryMusic');
 const battleText = document.getElementById('battleText');
 const mainTitle = document.querySelector('h2'); // h2要素を取得
-
-
-const images = {
-    start: './start-background.jpg',
-    select: './select-background.jpg',
-    battle: './battle-background.jpg',
-    victory: './victory-background.jpg',
-    defeat: './defeat-background.jpg'
-};
+const container = document.getElementById('container');
 
 // 日本語名の取得
 async function japaneseName(pokemon) {
@@ -142,6 +134,7 @@ async function startBattle() {
                     resultElement.innerHTML += `<h2>たたかいに勝利した!</h2>`;
                     victoryMusic.play();
                     document.body.className = 'victory';
+                    container.style.backgroundImage = "none"; // コンテナの背景画像を削除
                 }, 2000);
             } else if (selectedPokemons.length === 0) {
                 battleMusic.pause();
@@ -150,6 +143,7 @@ async function startBattle() {
                 setTimeout(() => {
                     resultElement.innerHTML += `<h2>目の前がまっくらになった</h2>`;
                     document.body.className = 'defeat';
+                    container.style.backgroundImage = "none"; // コンテナの背景画像を削除
                 }, 2000);
             } else {
                 setTimeout(selectPokemonForBattle, 3000);
