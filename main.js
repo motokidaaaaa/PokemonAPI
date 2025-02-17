@@ -86,7 +86,7 @@ async function startBattle() {
     selectScreenMusic.currentTime = 0; 
     battleMusic.play();
     document.body.className = 'battling';
-    mainTitle.textContent = "ポケモンを選択して戦おう！"; // バトル開始時にh2テキストを変更
+    mainTitle.textContent = "ポケモンを選択して戦おう！"; 
 
     if (selectedPokemons.length < 3) {
         alert('まず3匹のポケモンを選択してください！');
@@ -123,7 +123,7 @@ async function startBattle() {
                 currentEnemyIndex++;
             } else {
                 resultElement.innerHTML = `<h2>${enemy.name}が勝利した! </h2>`;
-                selectedPokemons.splice(playerPokemonIndex, 1); // 負けたポケモンをリストから削除
+                selectedPokemons.splice(playerPokemonIndex, 1); 
             }
 
             if (currentEnemyIndex >= enemyPokemons.length) {
@@ -183,7 +183,7 @@ function resetBattle() {
     victoryMusic.currentTime = 0; 
     selectScreenMusic.play();
     document.body.className = 'selecting';
-    mainTitle.textContent = "ポケモンをクリックして三体捕まえろ！"; // リセット時にh2テキストを変更
+    mainTitle.textContent = "ポケモンをクリックして三体捕まえろ！"; 
 }
 
 function startRotation() {
