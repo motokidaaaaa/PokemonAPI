@@ -8,6 +8,7 @@ const selectScreenMusic = document.getElementById('selectScreenMusic');
 const battleMusic = document.getElementById('battleMusic');
 const victoryMusic = document.getElementById('victoryMusic');
 const mainTitle = document.querySelector('h2');
+const container = document.querySelector('.container');
 
 const images = {
     start: './start-background.jpg',
@@ -79,11 +80,15 @@ async function getRandomEnemies() {
 // バトルを開始する関数
 async function startBattle() {
     clearInterval(rotationInterval); // ポケモンの回転表示を停止
-    selectScreenMusic.pause();
+    selectScreenMusic.pause(); // ポケモンセレクト中の音楽を停止
     selectScreenMusic.currentTime = 0; 
     battleMusic.play(); // バトル音楽を再生
     document.body.className = 'battling';
-    mainTitle.textContent = "ポケモンを選択して戦おう！"; 
+    mainTitle.innerHTML = `
+        <img src="player-icon.png" alt="Player Icon" class="player-icon">
+        ポケモンを選択して戦おう！
+        <img src="enemy-icon.png" alt="Enemy Icon" class="enemy-icon">
+    `;
     document.getElementById('result').innerHTML = ''; // バトル開始時に勝利テキストを消す
 
     await getRandomEnemies(); // ランダムな敵ポケモンを取得
@@ -95,12 +100,14 @@ async function startBattle() {
         const enemy = enemyPokemons[currentEnemyIndex];
 
         pokemonContainer.innerHTML = `
-            <div class="pokemon-info">
+            <div class="pokemon-info player-pokemon">
+                <span class="label">みかたのポケモン</span>
                 <h2>${pokemon.name}</h2>
                 <img src="${pokemon.image}" alt="${pokemon.name}">
                 <p>攻撃力: ${pokemon.attack}</p>
             </div>
-            <div class="pokemon-info">
+            <div class="pokemon-info enemy-pokemon">
+                <span class="label">あいてのポケモン</span>
                 <h2>${enemy.name}</h2>
                 <img src="${enemy.image}" alt="${enemy.name}">
                 <p>攻撃力: ${enemy.attack}</p>
@@ -146,6 +153,7 @@ async function startBattle() {
     }
 
     function selectPokemonForBattle() {
+        mainTitle.innerHTML = 'ポケモンを選択して戦おう！';
         pokemonContainer.innerHTML = '';
         selectedPokemons.forEach((pokemon, index) => {
             const pokemonDiv = document.createElement('div');
@@ -171,9 +179,13 @@ function resetBattle() {
     document.getElementById('result').innerHTML = ''; // リセット時に勝利テキストを消す
     victoryMusic.pause();
     victoryMusic.currentTime = 0; 
-    selectScreenMusic.play();
+    selectScreenMusic.play(); // ポケモンセレクト中の音楽を再生
     document.body.className = 'selecting';
-    mainTitle.textContent = "ポケモンをクリックして三体捕まえろ！";
+    mainTitle.innerHTML = `
+        <img src="player-icon.png" alt="Player Icon" class="player-icon">
+        ポケモンをクリックして三体捕まえろ！
+        <img src="enemy-icon.png" alt="Enemy Icon" class="enemy-icon">
+    `;
     startRotation();
 }
 
@@ -185,6 +197,5 @@ function startRotation() {
 document.addEventListener('DOMContentLoaded', () => {
     startRotation();
     document.body.className = 'selecting';
-    selectScreenMusic.play();
+    selectScreenMusic.play(); // ポケモンセレクト中の音楽を再生
 });
-

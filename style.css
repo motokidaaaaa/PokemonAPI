@@ -9,16 +9,17 @@ body {
     font-style: normal;
 }
 
-h1{
+h1 {
     font-family: "Dela Gothic One";
     color: #00bfff;
     font-size: 60px;
     font-weight: 400;
 }
 
-h2{
+h2 {
     font-family: "M PLUS 1p";
     font-size: 30px;
+    display: inline;
 }
 
 body.selecting {
@@ -62,6 +63,7 @@ body.defeat {
     background-color: #fafafa;
     text-align: center;
     cursor: pointer;
+    position: relative;
 }
 
 .pokemon-info img {
@@ -71,6 +73,24 @@ body.defeat {
 
 button {
     margin: 10px;
+}
+
+/* アイコン用のスタイルを追加 */
+.title-icons {
+    display: flex;
+    justify-content: space-between; /* 左右に配置 */
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.player-icon {
+    width: 50px; /* アイコンのサイズを大きくする */
+    height: 50px; /* アイコンのサイズを大きくする */
+}
+
+.enemy-icon {
+    width: 50px; /* アイコンのサイズを大きくする */
+    height: 50px; /* アイコンのサイズを大きくする */
 }
 
 /* 追加部分 */
