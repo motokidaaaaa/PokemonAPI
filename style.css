@@ -19,7 +19,9 @@ h1 {
 h2 {
     font-family: "M PLUS 1p";
     font-size: 30px;
-    display: inline;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 body.selecting {
@@ -83,12 +85,7 @@ button {
     margin-bottom: 10px;
 }
 
-.player-icon {
-    width: 50px; /* アイコンのサイズを大きくする */
-    height: 50px; /* アイコンのサイズを大きくする */
-}
-
-.enemy-icon {
+.player-icon, .enemy-icon {
     width: 50px; /* アイコンのサイズを大きくする */
     height: 50px; /* アイコンのサイズを大きくする */
 }
