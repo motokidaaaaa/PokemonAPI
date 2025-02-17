@@ -72,3 +72,98 @@ body.defeat {
 button {
     margin: 10px;
 }
+
+/* 追加部分 */
+body.start-background {
+    background-image: url('./pokemon-pretty-picture-background-wallpaper-preview.png'); /* スタート画面の背景画像 */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.start-screen {
+    text-align: center;
+    padding: 50px;
+    background-color: rgba(255, 255, 255, 0.8); /* 白の半透明背景 */
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 軽い影を追加 */
+    max-width: 600px;
+    margin: 50px auto;
+}
+
+.start-screen h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.start-screen button {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 10px;
+    border: none;
+    background-color: #4CAF50; /* 緑色 */
+    color: white;
+    border-radius: 5px; /* 角を丸くする */
+    transition: background-color 0.3s ease; /* ホバー時のアニメーション */
+}
+
+.start-screen button:hover {
+    background-color: #45a049; /* ホバー時の色 */
+}
+
+.start-image {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+}
+
+body.instructions-background {
+    background-image: url('./OIP.png'); /* 説明画面の背景画像 */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.instructions-screen {
+    text-align: center;
+    padding: 50px;
+    background-color: rgba(255, 255, 255, 0.8); /* 白の半透明背景 */
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 軽い影を追加 */
+    max-width: 600px;
+    margin: 50px auto;
+}
+
+.instructions-screen h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.instructions-screen p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.instructions-screen button {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 10px;
+    border: none;
+    background-color: #4CAF50; /* 緑色 */
+    color: white;
+    border-radius: 5px; /* 角を丸くする */
+    transition: background-color 0.3s ease; /* ホバー時のアニメーション */
+}
+
+.instructions-screen button:hover {
+    background-color: #45a049; /* ホバー時の色 */
+}
+
+.instructions-image {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+}
