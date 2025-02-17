@@ -7,7 +7,6 @@ let rotationInterval;
 const selectScreenMusic = document.getElementById('selectScreenMusic');
 const battleMusic = document.getElementById('battleMusic');
 const victoryMusic = document.getElementById('victoryMusic');
-const battleText = document.getElementById('battleText');
 const mainTitle = document.querySelector('h2');
 
 const images = {
@@ -49,7 +48,6 @@ async function displayRandomPokemon() {
     pokemonContainer.innerHTML = `
         <div class="pokemon-info" onclick="selectPokemon('${pokemon.name}', ${pokemon.stats.find(stat => stat.stat.name === 'attack').base_stat}, '${pokemon.sprites.front_default}')">
             <img src="${pokemon.sprites.front_default}" alt="ランダムポケモン">
-            <img src="pokeball.png" alt="ポケモンボール" class="pokeball">
         </div>
     `;
 }
@@ -60,7 +58,7 @@ function selectPokemon(name, attack, image) {
         selectedPokemons.push({name, attack, image});
         alert(`${name} きみにきめた!`);
         if (selectedPokemons.length === 3) {
-            document.querySelector('button[onclick="startBattle()"]').disabled = false;
+            startBattle();
         }
     }
 }
@@ -78,14 +76,6 @@ async function getRandomEnemies() {
     }
 }
 
-// バトルテキストを表示する関数
-function showBattleText(text) {
-    battleText.innerHTML = text;
-    setTimeout(() => {
-        battleText.innerHTML = '';
-    }, 2000);
-}
-
 // バトルを開始する関数
 async function startBattle() {
     clearInterval(rotationInterval);
@@ -94,11 +84,6 @@ async function startBattle() {
     battleMusic.play();
     document.body.className = 'battling';
     mainTitle.textContent = "ポケモンを選択して戦おう！";
-
-    if (selectedPokemons.length < 3) {
-        alert('まず3匹のポケモンを選択してください！');
-        return;
-    }
 
     await getRandomEnemies();
 
@@ -134,7 +119,6 @@ async function startBattle() {
             if (currentEnemyIndex >= enemyPokemons.length) {
                 battleMusic.pause();
                 battleMusic.currentTime = 0; 
-                showBattleText('');
                 setTimeout(() => {
                     resultElement.innerHTML += `<h2>たたかいに勝利した!</h2>`;
                     victoryMusic.play();
@@ -169,7 +153,6 @@ async function startBattle() {
             pokemonDiv.innerHTML = `
                 <h2>${pokemon.name}</h2>
                 <img src="${pokemon.image}" alt="${pokemon.name}">
-                <img src="images.png" alt="ポケモンボール" class="pokeball">
                 <p>攻撃力: ${pokemon.attack}</p>
             `;
             pokemonDiv.onclick = () => {
@@ -186,13 +169,12 @@ function resetBattle() {
     selectedPokemons = [];
     enemyPokemons = [];
     document.getElementById('result').innerHTML = '';
-    document.querySelector('button[onclick="startBattle()"]').disabled = true;
-    startRotation();
     victoryMusic.pause();
     victoryMusic.currentTime = 0; 
     selectScreenMusic.play();
     document.body.className = 'selecting';
     mainTitle.textContent = "ポケモンをクリックして三体捕まえろ！";
+    startRotation();
 }
 
 function startRotation() {
@@ -202,8 +184,6 @@ function startRotation() {
 
 document.addEventListener('DOMContentLoaded', () => {
     startRotation();
-    document.querySelector('button[onclick="startBattle()"]').disabled = true;
-    selectScreenMusic.play();
     document.body.className = 'selecting';
+    selectScreenMusic.play();
 });
-
