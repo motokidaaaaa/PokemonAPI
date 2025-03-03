@@ -1,5 +1,5 @@
 body {
-    
+    /* 背景色と背景設定 */
     background-color: #f0f0f0;
     background-size: cover;
     background-repeat: no-repeat;
@@ -24,20 +24,24 @@ h2 {
     align-items: center;
 }
 
+/* ポケモン選択画面の背景画像 */
 body.selecting {
     background-image: url('./poke1.jpg');
 }
 
+/* バトル画面の背景画像 */
 body.battling {
     background-image: url('./poke2.webp');
 }
 
+/* 勝利画面の背景画像 */
 body.victory {
     background-image: url('./kati2.png');
 }
 
+/* 敗北画面の背景画像 */
 body.defeat {
-    background-image: url('./make.jpg');
+    background-image: url('./make4.jpg');
 }
 
 .container {
@@ -91,6 +95,7 @@ button {
 }
 
 /* 追加部分 */
+/* スタート画面の背景画像 */
 body.start-background {
     background-image: url('./pokemon-pretty-picture-background-wallpaper-preview.png'); /* スタート画面の背景画像 */
     background-size: cover;
@@ -135,6 +140,7 @@ body.start-background {
     margin: 20px 0;
 }
 
+/* 説明画面の背景画像 */
 body.instructions-background {
     background-image: url('./OIP.png'); /* 説明画面の背景画像 */
     background-size: cover;

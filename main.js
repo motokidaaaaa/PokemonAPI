@@ -7,6 +7,7 @@ let rotationInterval;
 const selectScreenMusic = document.getElementById('selectScreenMusic');
 const battleMusic = document.getElementById('battleMusic');
 const victoryMusic = document.getElementById('victoryMusic');
+const loseMusic = document.getElementById('loseMusic'); // 追加した敗北音楽
 const mainTitle = document.querySelector('h2');
 
 const images = {
@@ -54,11 +55,12 @@ async function displayRandomPokemon() {
 
 // ポケモンを選択する関数
 function selectPokemon(name, attack, image) {
+    selectScreenMusic.play(); // 選択画面の音楽を再生
     if (selectedPokemons.length < 3) {
         selectedPokemons.push({name, attack, image});
         alert(`${name} きみにきめた!`);
         if (selectedPokemons.length === 3) {
-            startBattle();
+            startBattle(); // 3体選択されたらバトルを開始
         }
     }
 }
@@ -79,10 +81,10 @@ async function getRandomEnemies() {
 // バトルを開始する関数
 async function startBattle() {
     clearInterval(rotationInterval); // ポケモンの回転表示を停止
-    selectScreenMusic.pause();
+    selectScreenMusic.pause(); // 選択画面の音楽を停止
     selectScreenMusic.currentTime = 0; 
     battleMusic.play(); // バトル音楽を再生
-    document.body.className = 'battling';
+    document.body.className = 'battling'; // バトル中のクラスを設定
     mainTitle.textContent = "ポケモンを選択して戦おう！"; 
     document.getElementById('result').innerHTML = ''; // バトル開始時に勝利テキストを消す
 
@@ -90,6 +92,7 @@ async function startBattle() {
 
     let currentEnemyIndex = 0;
 
+    // バトルラウンドを処理する関数
     function battleRound(playerPokemonIndex) {
         const pokemon = selectedPokemons[playerPokemonIndex];
         const enemy = enemyPokemons[currentEnemyIndex];
@@ -125,28 +128,30 @@ async function startBattle() {
             }, 2000);
 
             if (currentEnemyIndex >= enemyPokemons.length) {
-                battleMusic.pause();
+                battleMusic.pause(); // バトル音楽を停止
                 battleMusic.currentTime = 0; 
                 setTimeout(() => {
                     resultElement.innerHTML = `<h2>たたかいに勝利した!</h2>`;
-                    victoryMusic.play();
-                    document.body.className = 'victory';
+                    victoryMusic.play(); // 勝利音楽を再生
+                    document.body.className = 'victory'; // 勝利クラスを設定
                     container.style.backgroundImage = "none"; // コンテナの背景画像を削除
                 }, 2000);
             } else if (selectedPokemons.length === 0) {
-                battleMusic.pause();
+                battleMusic.pause(); // バトル音楽を停止
                 battleMusic.currentTime = 0; 
                 setTimeout(() => {
                     resultElement.innerHTML = `<h2>目の前がまっくらになった</h2>`;
-                    document.body.className = 'defeat';
+                    loseMusic.play(); // 敗北音楽を再生
+                    document.body.className = 'defeat'; // 敗北クラスを設定
                     container.style.backgroundImage = "none"; // コンテナの背景画像を削除
                 }, 2000);
             } else {
-                setTimeout(selectPokemonForBattle, 3000);
+                setTimeout(selectPokemonForBattle, 3000); // 次のバトルラウンドを開始
             }
         }, 2000);
     }
 
+    // バトル用のポケモンを選択する関数
     function selectPokemonForBattle() {
         pokemonContainer.innerHTML = '';
         selectedPokemons.forEach((pokemon, index) => {
@@ -159,34 +164,37 @@ async function startBattle() {
                 <p>攻撃力: ${pokemon.attack}</p>
             `;
             pokemonDiv.onclick = () => {
-                battleRound(index);
+                battleRound(index); // クリックされたポケモンでバトルラウンドを開始
             };
             pokemonContainer.appendChild(pokemonDiv);
         });
     }
 
-    selectPokemonForBattle();
+    selectPokemonForBattle(); // バトル用ポケモンの選択を開始
 }
 
+// バトルをリセットする関数
 function resetBattle() {
     selectedPokemons = [];
     enemyPokemons = [];
     document.getElementById('result').innerHTML = ''; // リセット時に勝利テキストを消す
-    victoryMusic.pause();
+    victoryMusic.pause(); // 勝利音楽を停止
+    loseMusic.pause(); // 敗北音楽を停止
     victoryMusic.currentTime = 0; 
-    selectScreenMusic.play();
-    document.body.className = 'selecting';
+    selectScreenMusic.play(); // 選択画面の音楽を再生
+    document.body.className = 'selecting'; // 選択クラスを設定
     mainTitle.textContent = "ポケモンをクリックして三体捕まえろ！";
-    startRotation();
+    startRotation(); // ランダムなポケモン表示を開始
 }
 
+// ランダムなポケモン表示を開始する関数
 function startRotation() {
     displayRandomPokemon();
     rotationInterval = setInterval(displayRandomPokemon, 1500); // ポケモンを1.5秒ごとに回転表示
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    startRotation();
-    document.body.className = 'selecting';
-    selectScreenMusic.play();
+    startRotation(); // ページ読み込み時にランダムなポケモン表示を開始
+    document.body.className = 'selecting'; // 選択クラスを設定
+    selectScreenMusic.play(); // 選択画面の音楽を再生
 });

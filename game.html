@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -12,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
 
     <style>
+        /* ポケモン情報のスタイル */
         .pokemon-info {
             border: 2px solid black;
             border-radius: 10px;
@@ -19,10 +19,12 @@
             margin: 10px;
             text-align: center;
         }
+        /* 味方ポケモンのスタイル */
         .player-pokemon {
             border-color: blue;
             background-color: #e0f7fa;
         }
+        /* 敵ポケモンのスタイル */
         .enemy-pokemon {
             border-color: red;
             background-color: #ffebee;
@@ -41,10 +43,12 @@
             <div id="battleText" class="battle-text"></div>
         </div>
     </div>
+    <!-- 音楽ファイル -->
     <audio id="selectScreenMusic" src="～オープニング～.wav" loop></audio>
     <audio id="battleMusic" src="戦い（ＶＳトレーナー）.wav" loop></audio>
     <audio id="victoryMusic" src="勝利（ＶＳトレーナー）.wav"></audio>
-    <script src="main.js"></script></div>
+    <audio id="loseMusic" src="./負けると分かっていても突撃しないといけない感じのBGM.mp3" loop></audio>
+    <!-- メインのスクリプトファイル -->
+    <script src="main.js"></script>
 </body>
 </html>
-
